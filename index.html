@@ -336,36 +336,44 @@ body::before {
    RESPONSIVE DESIGN MODIFICATIONS
 ═══════════════════════════════════════ */
 @media (max-width: 850px) {
-  .stage {
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Swapped text position seamlessly above deck for ergonomic single-screen mobile layout */
+  /* 1. BRING THE 3 CARDS CLOSER & LARGER */
   .gallery-layout { 
-    flex-direction: column; 
+    flex-direction: column; /* Stacks text naturally over the deck */
     text-align: center; 
-    gap: 24px; 
-    padding: 20px;
-    width: 100%;
+    gap: 35px; 
   }
   
   .gallery-info { 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    width: 100%;
   }
+  
+  /* Upscales the card deck container on small screens so they don't look distant */
+  .gallery-container {
+    width: min(320px, 80vw); 
+    height: min(400px, 48vh);
+    margin-bottom: 20px;
+  }
+
+  /* 2. ELIMINATE THE MOSAIC BOTTOM GAP */
+  .mosaic-wrapper {
+    top: -15%; 
+    left: -10%; 
+    width: 120%; 
+    height: 130%;
+    transform: rotate(-6deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 🌟 Centers rows vertically to banish the huge empty bottom gap */
+  }
+
   
   .gallery-info h2 { font-size: 1.8rem; margin-bottom: 8px; }
   .gallery-info p { font-size: 0.88rem; line-height: 1.6; }
   .gallery-info .gold-btn { margin-top: 16px !important; }
   
   /* Downscaled container bounds dynamically so the cards and layout fit safely on mobile screen headers */
-  .gallery-container {
-    width: min(280px, 75vw);
-    height: min(350px, 42vh);
-  }
 
   .polaroid {
     padding: 12px 12px 48px 12px;
