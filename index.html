@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Premium Chapter ✨</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS (Midnight Emerald & Gold)
+═══════════════════════════════════════ */
+:root {
+  --bg:           #050e0c;
+  --emerald:      #0b2921;
+  --gold:         #dfb76c;
+  --gold-dim:     rgba(223, 183, 108, 0.2);
+  --white:        #f4f7f6;
+  --w90:          rgba(244, 247, 246, 0.9);
+  --w60:          rgba(244, 247, 246, 0.6);
+  --glass:        rgba(255, 255, 255, 0.03);
+  --glass-b:      rgba(255, 255, 255, 0.08);
+  
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+  --font-serif:   'Playfair Display', serif;
+  --font-script:  'Pinyon Script', cursive;
+  --ease:         cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--white); font-family: var(--font-body); }
+
+/* Ambient lighting overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1;
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(223, 183, 108, 0.08), transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(11, 41, 33, 0.6), transparent 60%);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   STAGE SYSTEM
+═══════════════════════════════════════ */
+.stage {
+  position: absolute; inset: 0;
+  display: flex; justify-content: center; align-items: center;
+  z-index: 2;
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.hidden { opacity: 0 !important; pointer-events: none; transform: scale(1.02); }
+
+/* Premium CTA Button */
+.gold-btn {
+  background: transparent;
+  border: 1px solid var(--gold-dim);
+  padding: 14px 36px;
+  border-radius: 4px;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--ease);
+  z-index: 10;
+}
+.gold-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%); transition: transform 0.6s var(--ease);
+}
+.gold-btn:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 25px rgba(223, 183, 108, 0.25);
+  text-shadow: 0 0 8px rgba(223, 183, 108, 0.4);
+}
+.gold-btn:hover::before { transform: translateX(100%); }
+
+/* ═══════════════════════════════════════
+   STAGE 1: THE PRELUDE
+═══════════════════════════════════════ */
+#prelude { flex-direction: column; gap: 40px; text-align: center; padding: 20px; }
+
+.prelude-title {
+  font-family: var(--font-script);
+  font-size: clamp(4rem, 10vw, 8rem);
+  color: var(--gold);
+  line-height: 0.8;
+  text-shadow: 0 0 40px rgba(223, 183, 108, 0.2);
+}
+.prelude-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--w90);
+  margin-top: -10px;
+}
+
+/* ═══════════════════════════════════════
+   STAGE 2: THE GALLERY STACK
+═══════════════════════════════════════ */
+#gallery { flex-direction: column; padding: 20px; }
+
+.gallery-layout {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(40px, 8vw, 120px);
+  width: min(1200px, 95vw);
+}
+.gallery-info { max-width: 380px; }
+.gallery-info h2 { font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 15px; color: var(--white); }
+.gallery-info p { color: var(--w60); line-height: 1.8; font-size: 0.95rem; }
+
+.gallery-container {
+  position: relative;
+  width: min(400px, 85vw);
+  height: min(500px, 62vh);
+}
+
+/* Polaroid Card Design */
+.polaroid {
+  position: absolute; inset: 0;
+  background: #091714;
+  border: 1px solid var(--glass-b);
+  border-radius: 8px;
+  padding: 16px 16px 64px 16px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+  cursor: pointer;
+  transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
+}
+.polaroid img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.polaroid-caption {
+  position: absolute; bottom: 20px; left: 16px; right: 16px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--gold);
+}
+
+/* ═══════════════════════════════════════
+   STAGE 3: THE CIPHER ENIGMA
+═══════════════════════════════════════ */
+#enigma { flex-direction: column; }
+
+.cipher-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-b);
+  padding: clamp(30px, 6vw, 60px);
+  border-radius: 12px;
+  text-align: center;
+  max-width: 500px; width: 90vw;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+}
+.cipher-card h2 { font-family: var(--font-serif); margin-bottom: 12px; letter-spacing: 1px; }
+.cipher-card p { color: var(--w60); font-size: 0.9rem; margin-bottom: 30px; }
+
+.input-wrapper {
+  position: relative; margin-bottom: 24px;
+}
+.cipher-input {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--glass-b);
+  padding: 16px; border-radius: 4px;
+  color: var(--white); font-family: var(--font-body);
+  font-size: 1.1rem; text-align: center;
+  letter-spacing: 4px; text-transform: uppercase; outline: none;
+  transition: border-color 0.3s;
+}
+.cipher-input:focus { border-color: var(--gold); }
+
+/* ═══════════════════════════════════════
+   STAGE 4: THE MOSAIC MATRIX
+═══════════════════════════════════════ */
+#mosaic-stage { 
+  display: none; 
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+  overflow: hidden; 
+}
+
+#mosaic-stage::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 4;
+  background: radial-gradient(ellipse at center, transparent 20%, rgba(5,14,12,0.85) 100%);
+  pointer-events: none;
+}
+
+.mosaic-wrapper {
+  position: absolute;
+  top: -20%; left: -10%;
+  width: 120%; height: 140%;
+  transform: rotate(-10deg);
+  display: flex; flex-direction: column;
+  gap: clamp(14px, 2vw, 24px);
+  z-index: 2;
+}
+
+.photo-row { width: 100%; overflow: hidden; display: flex; }
+.track { display: flex; gap: clamp(12px, 1.8vw, 22px); }
+
+.move-right .track { animation: slideRight 55s linear infinite; }
+.move-left  .track { animation: slideLeft  55s linear infinite; }
+
+@keyframes slideRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes slideLeft  { from { transform: translateX(0); }   to { transform: translateX(-50%); } }
+
+.memory-tile {
+  width:  clamp(140px, 18vw, 210px);
+  height: clamp(200px, 26vw, 290px);
+  perspective: 1200px;
+  flex-shrink: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.tile-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.memory-tile.is-flipped .tile-inner { transform: rotateY(180deg); }
+
+.tile-front, .tile-back {
+  position: absolute;
+  width: 100%; height: 100%;
+  backface-visibility: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(223, 183, 108, 0.15);
+  overflow: hidden;
+}
+.tile-front { background-size: cover; background-position: center; }
+.tile-back {
+  background: #061511;
+  transform: rotateY(180deg);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  color: var(--gold);
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  line-height: 1.5;
+}
+
+.rick-branding {
+  position: absolute; bottom: 0; left: 0;
+  width: clamp(280px, 45vw, 500px);
+  height: clamp(180px, 35vh, 320px);
+  background: radial-gradient(circle at bottom left, rgba(11,41,33,0.9), transparent 70%);
+  z-index: 10;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(30px, 5vw, 50px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+.bday-text {
+  font-family: var(--font-script);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  color: var(--white);
+  line-height: 1;
+  text-shadow: 0 0 30px var(--gold-dim);
+}
+.from-text {
+  letter-spacing: 6px;
+  font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+#to-final-btn {
+  position: absolute;
+  bottom: clamp(20px, 4vh, 40px);
+  right: clamp(20px, 4vw, 40px);
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+/* ═══════════════════════════════════════
+   STAGE 5: THE FINAL CINEMATIC UNVEILING
+═══════════════════════════════════════ */
+#unveiling { background: #020605; display: none; opacity: 0; transition: opacity 1s ease; }
+
+.bg-video-wrap {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; z-index: 0;
+  filter: brightness(0.35) contrast(1.05);
+}
+
+.letter-wrap {
+  position: relative;
+  width: min(720px, 90vw);
+  max-height: 85vh;
+  padding: clamp(24px, 5vw, 50px);
+  overflow-y: auto;
+  z-index: 5;
+  background: rgba(5, 14, 12, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(223, 183, 108, 0.1);
+  border-radius: 8px;
+}
+.letter-wrap h1 { font-family: var(--font-script); font-size: 4.5rem; color: var(--gold); margin-bottom: 20px; text-align: center; }
+.letter-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  line-height: 2;
+  color: var(--w90);
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE DESIGN MODIFICATIONS
+═══════════════════════════════════════ */
+@media (max-width: 850px) {
+  .stage {
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Swapped text position seamlessly above deck for ergonomic single-screen mobile layout */
+  .gallery-layout { 
+    flex-direction: column; 
+    text-align: center; 
+    gap: 35px; 
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .gallery-info { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%;
+  }
+  
+  .gallery-info h2 { font-size: 1.8rem; margin-bottom: 8px; }
+  .gallery-info p { font-size: 0.88rem; line-height: 1.6; }
+  .gallery-info .gold-btn { margin-top: 16px !important; }
+  
+  /* Upscales the card container bounds dynamically so they don't look far back on mobile viewports */
+  .gallery-container {
+    width: min(320px, 80vw);
+    height: min(400px, 48vh);
+    margin-bottom: 20px;
+  }
+
+  .polaroid {
+    padding: 12px 12px 48px 12px;
+  }
+  .polaroid-caption {
+    bottom: 14px;
+    font-size: 0.85rem;
+  }
+  
+  /* Centers rows vertically to eliminate the huge empty gap beneath the mobile mosaic */
+  .mosaic-wrapper {
+    top: -15%; 
+    left: -10%; 
+    width: 120%; 
+    height: 130%;
+    transform: rotate(-6deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<section id="prelude" class="stage">
+  <div>
+    <div class="prelude-title">Ethereal</div>
+    <div class="prelude-sub">A Chapter Written For You</div>
+  </div>
+  <button class="gold-btn" onclick="nextStage('prelude', 'gallery')">Begin Entry</button>
+</section>
+
+<section id="gallery" class="stage hidden">
+  <div class="gallery-layout">
+    <div class="gallery-info">
+      <h2>Captured Frames</h2>
+      <p>Some moments refuse to be contained by time. Tap through the deck to peel back the layers of our favorite chapters.</p>
+      <button class="gold-btn" style="margin-top: 30px;" onclick="nextStage('gallery', 'enigma')">Proceed</button>
+    </div>
+    
+    <div class="gallery-container">
+      <div class="polaroid" onclick="swipeCard(this)">
+        <img src="pic2.png" alt="Moment 1">
+        <div class="polaroid-caption">The Unmatched Radiance</div>
+      </div>
+      <div class="polaroid" onclick="swipeCard(this)">
+        <img src="pic3.png" alt="Moment 2">
+        <div class="polaroid-caption">Symphonies in Silence</div>
+      </div>
+      <div class="polaroid" onclick="swipeCard(this)">
+        <img src="Pic4.png" alt="Moment 3">
+        <div class="polaroid-caption">Where Time Stood Still</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="enigma" class="stage hidden">
+  <div class="cipher-card">
+    <h2>The Master Key</h2>
+    <p>Type the secret password to decrypt your final message. (Hint: Try "GOLD")</p>
+    <div class="input-wrapper">
+      <input type="text" id="cipherInput" class="cipher-input" placeholder="••••" autocomplete="off" max-length="8">
+    </div>
+    <button class="gold-btn" onclick="verifyCipher()">Unlock</button>
+  </div>
+</section>
+
+<section id="mosaic-stage" class="stage">
+  <div class="mosaic-wrapper">
+    <div class="photo-row move-right"><div class="track" id="track1"></div></div>
+    <div class="photo-row move-left"> <div class="track" id="track2"></div></div>
+    <div class="photo-row move-right"><div class="track" id="track3"></div></div>
+    <div class="photo-row move-left"> <div class="track" id="track4"></div></div>
+  </div>
+  <div class="rick-branding" id="final-brand">
+    <div class="bday-text">Happy Birthday</div>
+    <div class="from-text">from Andree</div>
+  </div>
+  <button id="to-final-btn" class="gold-btn" onclick="revealFinalUnveiling()">One Last Thing… →</button>
+</section>
+
+<section id="unveiling" class="stage">
+  <video autoplay loop muted playsinline class="bg-video-wrap" id="finalVideo">
+    <source src="video3.mp4" type="video/mp4">
+  </video>
+  <div class="letter-wrap">
+    <h1>Dearest</h1>
+    <p class="letter-text" id="typewriterTarget"></p>
+  </div>
+</section>
+
+<audio id="ambientTrack" src="Song1.mp3" loop></audio>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+/* ─── SYSTEM CONFIG & STATE ─── */
+const TARGET_KEYWORD = "GOLD";
+const COMPOS_NOTE = "Happy 20th Birthday!Twenty years ago, the world became a little brighter because you arrived in it.I feel lucky to have gotten the chance to know you, spend time with you, and create memories together. Every conversation, every laugh, and every moment we've shared has become a memory I treasure.As you begin this new chapter at 20, I hope you chase your dreams fearlessly, embrace every opportunity, and never forget how special you are to the people who care about you.May this year bring you happiness, success, peace, adventure, and countless reasons to smile.Thank you for being the wonderful person that you are.Enjoy every moment of your special day.Happy Birthday, Hilda. ❤️Love,Andree 🌹";
+
+/* ─── MOSAIC DATA SPECIFICATION ─── */
+/* Arranges your 20 images sequentially from pic1.png up to pic20.png */
+const trackContents = [
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15],
+  [16, 17, 18, 19, 20]
+];
+
+const messages = [
+  "Radiant. ✨","Magic. 💜","Stunning. 🌸","Masterpiece. 🎨","Glow. ☀️",
+  "Iconic. 🪄","Boss. 💅","The Main Character. 🎬","Captivating. 😍","Shine. ⭐",
+  "Grace. 🦢","Fine art. 🎭","Special. 🌈","Elegant. 💎","Joy. 😊",
+  "Unstoppable. 🚀","Breathtaking. 🌬️","One in a billion. 🌌","Limitless. ♾️","Happy Birthday! 🎂"
+];
+
+/* ─── STAGE NAVIGATION ─── */
+function nextStage(currentId, nextId) {
+  document.getElementById(currentId).classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById(nextId).classList.remove('hidden');
+    if(currentId === 'prelude') {
+      document.getElementById('ambientTrack').play().catch(() => {});
+    }
+  }, 400);
+}
+
+/* ─── STACK CARD ENGINE ─── */
+let zIndexCounter = 10;
+function swipeCard(cardElement) {
+  cardElement.style.transform = 'translate(120%, -20%) rotate(25deg) scale(0.9)';
+  cardElement.style.opacity = '0';
+  
+  setTimeout(() => {
+    zIndexCounter--;
+    cardElement.style.zIndex = zIndexCounter;
+    cardElement.style.transform = `translate(0, 0) rotate(${(Math.random() * 6 - 3).toFixed(1)}deg) scale(1)`;
+    cardElement.style.opacity = '1';
+  }, 500);
+}
+
+document.querySelectorAll('.polaroid').forEach((card, idx) => {
+  card.style.zIndex = 20 - idx;
+  card.style.transform = `rotate(${(Math.random() * 6 - 3).toFixed(1)}deg)`;
+});
+
+/* ─── DECRYPTION INPUT VERIFICATION ─── */
+function verifyCipher() {
+  const inputVal = document.getElementById('cipherInput').value.trim().toUpperCase();
+  if (inputVal === TARGET_KEYWORD) {
+    confetti({ particleCount: 150, spread: 80, colors: ['#dfb76c', '#f4f7f6', '#0b2921'] });
+    
+    document.getElementById('enigma').classList.add('hidden');
+    setTimeout(() => {
+      const mosaicStage = document.getElementById('mosaic-stage');
+      mosaicStage.style.display = 'flex';
+      setTimeout(() => {
+        mosaicStage.style.opacity = '1';
+        document.getElementById('final-brand').style.opacity = '1';
+        document.getElementById('to-final-btn').style.opacity = '1';
+      }, 50);
+    }, 400);
+    
+  } else {
+    const inputField = document.getElementById('cipherInput');
+    inputField.style.borderColor = '#bd3a3a';
+    setTimeout(() => inputField.style.borderColor = 'var(--glass-b)', 1000);
+  }
+}
+
+/* ─── MOSAIC BUILD ENGINE ─── */
+(function buildMosaic() {
+  trackContents.forEach((ids, idx) => {
+    const track = document.getElementById(`track${idx + 1}`);
+    [...ids, ...ids].forEach(id => {
+      const tile = document.createElement('div');
+      tile.className = 'memory-tile';
+      tile.onclick = () => tile.classList.toggle('is-flipped');
+      tile.innerHTML = `
+        <div class="tile-inner">
+          <div class="tile-front" style="background-image:url('pic${id}.png')"></div>
+          <div class="tile-back"><p>${messages[id - 1] || 'Perfection. 🤍'}</p></div>
+        </div>`;
+      track.appendChild(tile);
+    });
+  });
+})();
+
+/* ─── REVEAL VIDEO WRAP STAGE ─── */
+function revealFinalUnveiling() {
+  const mosaic = document.getElementById('mosaic-stage');
+  mosaic.style.opacity = '0';
+  setTimeout(() => {
+    mosaic.style.display = 'none';
+    const finalStage = document.getElementById('unveiling');
+    finalStage.style.display = 'flex';
+    setTimeout(() => {
+      finalStage.style.opacity = '1';
+      document.getElementById('finalVideo').play().catch(() => {});
+      setTimeout(triggerTypewriter, 800);
+    }, 50);
+  }, 800);
+}
+
+/* ─── CINEMATIC TYPEWRITER ENGINE ─── */
+let typeIdx = 0;
+function triggerTypewriter() {
+  const target = document.getElementById('typewriterTarget');
+  if (typeIdx < COMPOS_NOTE.length) {
+    target.innerHTML += COMPOS_NOTE.charAt(typeIdx);
+    typeIdx++;
+    setTimeout(triggerTypewriter, 45);
+  }
+}
+</script>
+</body>
+</html>
