@@ -460,7 +460,8 @@ And I’m measured in ticks right from the start.</p>
   </div>
 </section>
 
-<audio id="ambientTrack" src="Song1.mp3" loop></audio>
+<audio id="audio2" src="audio1.mp3" loop></audio>
+<audio id="audio2" src="audio2.mp3" loop></audio>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
@@ -489,7 +490,7 @@ function nextStage(currentId, nextId) {
   setTimeout(() => {
     document.getElementById(nextId).classList.remove('hidden');
     if(currentId === 'prelude') {
-      document.getElementById('ambientTrack').play().catch(() => {});
+      document.getElementById('audio1').play().catch(() => {});
     }
   }, 400);
 }
@@ -517,6 +518,8 @@ document.querySelectorAll('.polaroid').forEach((card, idx) => {
 function verifyCipher() {
   const inputVal = document.getElementById('cipherInput').value.trim().toUpperCase();
   if (inputVal === TARGET_KEYWORD) {
+    document.getElementById('audio1').pause();
+    document.getElementById('audio2').play().catch(() => {});
     confetti({ particleCount: 150, spread: 80, colors: ['#dfb76c', '#f4f7f6', '#0b2921'] });
     
     document.getElementById('enigma').classList.add('hidden');
